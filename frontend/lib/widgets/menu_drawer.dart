@@ -268,7 +268,7 @@ class _ContactItem extends StatelessWidget {
 
 // Social icon widget for menu drawer
 class _SocialIcon extends StatefulWidget {
-  final IconData icon;
+  final FaIconData icon;
   final Color color;
   final String url;
 
@@ -305,7 +305,7 @@ class _SocialIconState extends State<_SocialIcon> {
                 color: _isHovering ? widget.color : widget.color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: FaIcon(
                 widget.icon,
                 size: 18,
                 color: _isHovering ? Colors.white : widget.color,

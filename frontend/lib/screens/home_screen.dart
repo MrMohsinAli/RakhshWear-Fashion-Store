@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Timer _timer;
   int _currentPage = 0;
+  List<Product>? _cachedHomeProducts;
 
   static const int _slideCount = 6;
 
@@ -57,29 +58,35 @@ class _HomeScreenState extends State<HomeScreen> {
               height: isMobile ? 350 : 500,
               child: Stack(
                 children: [
-                  // ── Slides ────
-                  // ── Slides ────
+                  // Only render current + neighboring slides for performance
                   ...List.generate(_slideCount, (index) {
                     final slides = _getSlides();
                     final s = slides[index];
                     final isActive = index == _currentPage;
+                    // Skip painting non-adjacent slides for performance
+                    final isNearby = (index - _currentPage).abs() <= 1 ||
+                        (index == 0 && _currentPage == _slideCount - 1) ||
+                        (index == _slideCount - 1 && _currentPage == 0);
 
                     return Positioned.fill(
-                      child: IgnorePointer(
-                        ignoring: !isActive,
-                        child: AnimatedOpacity(
-                          opacity: isActive ? 1.0 : 0.0,
-                          duration: const Duration(milliseconds: 1000),
-                          curve: Curves.easeInOut,
-                          child: _buildHeroItemWithDescription(
-                            context,
-                            s.title,
-                            s.description,
-                            s.imageUrl,
-                            s.subcategories,
-                            s.collectionTitle,
-                            isMobile,
-                            isActive,
+                      child: Offstage(
+                        offstage: !isNearby && !isActive,
+                        child: IgnorePointer(
+                          ignoring: !isActive,
+                          child: AnimatedOpacity(
+                            opacity: isActive ? 1.0 : 0.0,
+                            duration: const Duration(milliseconds: 800),
+                            curve: Curves.easeInOut,
+                            child: _buildHeroItemWithDescription(
+                              context,
+                              s.title,
+                              s.description,
+                              s.imageUrl,
+                              s.subcategories,
+                              s.collectionTitle,
+                              isMobile,
+                              isActive,
+                            ),
                           ),
                         ),
                       ),
@@ -192,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Product> _getSortedHomeProducts() {
+    if (_cachedHomeProducts != null) return _cachedHomeProducts!;
     final products = List<Product>.from(MockDataService.products);
     
     // Priority: shirts > outerwear > bottoms > knitwear > footwear > accessories > fragrances
@@ -211,6 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return pA.compareTo(pB);
     });
 
+    _cachedHomeProducts = products;
     return products;
   }
 

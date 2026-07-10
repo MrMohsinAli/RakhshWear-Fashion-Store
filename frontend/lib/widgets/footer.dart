@@ -1,4 +1,4 @@
-﻿import 'package:smart_ecommerce_app/utils/page_route.dart';
+import 'package:smart_ecommerce_app/utils/page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -317,7 +317,7 @@ class _FooterLinkState extends State<_FooterLink> {
 }
 
 class _SocialLink extends StatefulWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String text;
   final String url;
   final Color hoverColor;
@@ -350,7 +350,7 @@ class _SocialLinkState extends State<_SocialLink> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                FaIcon(
                   widget.icon,
                   size: 18,
                   color: _isHovering ? widget.hoverColor : Colors.white70,

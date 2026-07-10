@@ -157,37 +157,25 @@ class _AnnouncementBarState extends State<_AnnouncementBar>
 
             // ── Gradient Fades (Left/Right) ──────────────────────────────
             Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 40,
+              left: 0, top: 0, bottom: 0, width: 40,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
-                    colors: [
-                      Color(0xFF37474F),
-                      Color(0x0037474F),
-                    ],
+                    colors: [Color(0xFF37474F), Color(0x0037474F)],
                   ),
                 ),
               ),
             ),
             Positioned(
-              right: 40,
-              top: 0,
-              bottom: 0,
-              width: 40,
+              right: 40, top: 0, bottom: 0, width: 40,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerRight,
                     end: Alignment.centerLeft,
-                    colors: [
-                      Color(0xFF37474F),
-                      Color(0x0037474F),
-                    ],
+                    colors: [Color(0xFF37474F), Color(0x0037474F)],
                   ),
                 ),
               ),
@@ -195,9 +183,7 @@ class _AnnouncementBarState extends State<_AnnouncementBar>
 
             // ── Close Button ─────────────────────────────────────────────
             Positioned(
-              right: 12,
-              top: 0,
-              bottom: 0,
+              right: 12, top: 0, bottom: 0,
               child: Center(
                 child: Container(
                   padding: const EdgeInsets.only(left: 12),
@@ -242,6 +228,8 @@ class _AnnouncementBarState extends State<_AnnouncementBar>
     );
   }
 }
+
+
 
 class _NavBar extends StatefulWidget {
   final ValueNotifier<bool> drawerOpenNotifier;
@@ -797,16 +785,14 @@ class _MenuNavLinkState extends State<_MenuNavLink> {
                     overflow: TextOverflow.visible,
                   ),
                   const SizedBox(height: 4),
-                  AnimatedSize(
-                    duration: const Duration(milliseconds: 1200),
-                    curve: Curves.easeOutCubic,
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOut,
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                      height: 1.5,
-                      width: _isHovered ? double.infinity : 0,
-                      decoration: BoxDecoration(
-                        color: _isHovered ? Colors.black : Colors.transparent,
-                      ),
+                    height: 1.5,
+                    width: _isHovered ? 32.0 : 0,
+                    decoration: BoxDecoration(
+                      color: _isHovered ? Colors.black : Colors.transparent,
                     ),
                   ),
                 ],
