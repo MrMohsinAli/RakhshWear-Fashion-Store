@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/((?!backend/).*)", "destination": "/frontend/build/web/$1" },
+    { "source": "/((?!backend/).*)", "destination": "/frontend/build/web/index.html" }
+  ]
+}
